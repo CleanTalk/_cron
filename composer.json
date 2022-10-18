@@ -10,7 +10,12 @@
   ],
   "license": "GPL-3.0-or-later",
   "require": {
-    "cleantalk/installer": "*",
+    "cleantalk/apbct-installer": "*",
     "cleantalk/storage-handler": "*"
+  },
+  "config": {
+    "allow-plugins": {
+      "cleantalk/apbct-installer": true
+    }
   }
 }
