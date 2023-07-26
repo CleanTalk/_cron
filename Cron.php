@@ -237,6 +237,9 @@ class Cron
 
         $tasks_to_run = array();
         foreach ($this->tasks as $task => &$task_data) {
+            if (!is_array($task_data)) {
+              continue;
+            }
             if (
                 ! isset($task_data['processing'], $task_data['last_call']) ||
                 ($task_data['processing'] === true &&
