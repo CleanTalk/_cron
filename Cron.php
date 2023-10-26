@@ -118,7 +118,7 @@ class Cron
     public function getTasks()
     {
         /** @var \Cleantalk\Common\StorageHandler\StorageHandler $storage_handler_class */
-        $storage_handler_class = Mloader::get('StorageHandler');
+        $storage_handler_class = new (Mloader::get('StorageHandler'));
         $tasks = $storage_handler_class->getSetting($this->cron_option_name);
 
         return empty($tasks) ? array() : $tasks;
