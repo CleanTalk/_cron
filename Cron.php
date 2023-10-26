@@ -328,7 +328,7 @@ class Cron
     public function createId()
     {
         /** @var \Cleantalk\Common\StorageHandler\StorageHandler $storage_handler_class */
-        $storage_handler_class = Mloader::get('StorageHandler');
+        $storage_handler_class = new (Mloader::get('StorageHandler'));
 
         $this->id = mt_rand(0, mt_getrandmax());
         $storage_handler_class->saveSetting('cleantalk_cron_pid', $this->id);
