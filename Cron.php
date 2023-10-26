@@ -80,7 +80,7 @@ class Cron
     public function getCronLastStart()
     {
         /** @var \Cleantalk\Common\StorageHandler\StorageHandler $storage_handler_class */
-        $storage_handler_class = Mloader::get('StorageHandler');
+        $storage_handler_class = new (Mloader::get('StorageHandler'));
         return (int)$storage_handler_class->getSetting('cleantalk_cron_last_start');
     }
 
@@ -92,7 +92,7 @@ class Cron
     public function setCronLastStart()
     {
         /** @var \Cleantalk\Common\StorageHandler\StorageHandler $storage_handler_class */
-        $storage_handler_class = Mloader::get('StorageHandler');
+        $storage_handler_class = new (Mloader::get('StorageHandler'));
         return $storage_handler_class->saveSetting('cleantalk_cron_last_start', time());
     }
 
@@ -106,7 +106,7 @@ class Cron
     public function saveTasks($tasks)
     {
         /** @var \Cleantalk\Common\StorageHandler\StorageHandler $storage_handler_class */
-        $storage_handler_class = Mloader::get('StorageHandler');
+        $storage_handler_class = new (Mloader::get('StorageHandler'));
         return $storage_handler_class->saveSetting($this->cron_option_name, $tasks);
     }
 
@@ -228,7 +228,7 @@ class Cron
     public function checkTasks()
     {
         /** @var \Cleantalk\Common\StorageHandler\StorageHandler $storage_handler_class */
-        $storage_handler_class = Mloader::get('StorageHandler');
+        $storage_handler_class = new (Mloader::get('StorageHandler'));
 
         // No tasks to run
         if ( empty($this->tasks) || $storage_handler_class->getSetting('cleantalk_cron_pid') !== $this->id ) {
