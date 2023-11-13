@@ -235,17 +235,52 @@ class Cron
             return false;
         }
 
-        $tasks_to_run = array();
-        foreach ( $this->tasks as $task => &$task_data ) {
-            if (
-                !isset($task_data['processing'], $task_data['last_call']) ||
-                ($task_data['processing'] === true &&
-                    time() - $task_data['last_call'] > $this->task_execution_min_interval)
-            ) {
-                $task_data['processing'] = false;
-                $task_data['last_call'] = 0;
+        //validate format of tasks
+        $validated_tasks = array();
+        foreach ($this->tasks as $task_name => $task_data) {
+            if (!is_array($task_data)) {
+                if ($this->debug) {
+                    error_log(var_export('Task data is not array ' . $task_name, true));
+                }
+                continue;
             }
 
+            if ( ! isset($task_data['params'])) {
+                $task_data['params'] = array();
+            }
+
+            if (
+                !isset(
+                    $task_data['handler'],
+                    $task_data['next_call'],
+                    $task_data['period']
+                )
+            ) {
+                if ($this->debug) {
+                    error_log(var_export('Task data format is incorrect ' . $task_name, true));
+                }
+                continue;
+            }
+
+            if (!is_callable($task_data['handler'])) {
+                if ($this->debug) {
+                    error_log(var_export('Task data handler is not callable ' . $task_name, true));
+                }
+                continue;
+            }
+
+            $validated_tasks[$task_name] = $task_data;
+        }
+
+        $this->tasks = $validated_tasks;
+
+        if ($this->debug) {
+            error_log('Validated tasks ' . var_export($this->tasks, true));
+        }
+
+        $tasks_to_run = array();
+
+        foreach ($this->tasks as $task => &$task_data) {
             if (
                 $task_data['processing'] === false &&
                 $task_data['next_call'] <= time() // default condition
