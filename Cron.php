@@ -386,7 +386,7 @@ class Cron
 
     /**
      * Service function for launching cron tasks
-     * 
+     *
      * @param string $task
      * @param int $time
      * @return void
@@ -400,7 +400,7 @@ class Cron
         /** @var \Cleantalk\Common\StorageHandler\StorageHandler $storage_handler_class */
         $storage_handler_class = Mloader::get('StorageHandler');
         $storage_handler_class = new $storage_handler_class();
-        
+
         $tasks = $storage_handler_class->getSetting($this->cron_option_name);
 
         if ( ! isset($tasks[$task]) ) {
