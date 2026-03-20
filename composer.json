@@ -1,7 +1,6 @@
 {
   "name": "cleantalk/cron",
   "description": "CleanTalk APBCT `Cron` class",
-  "type": "cleantalk-apbct-lib",
   "authors": [
     {
       "name": "CleanTalk Team",
