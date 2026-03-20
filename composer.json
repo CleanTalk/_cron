@@ -10,7 +10,6 @@
   ],
   "license": "GPL-3.0-or-later",
   "require": {
-    "cleantalk/apbct-installer": "*",
     "cleantalk/storage-handler": "*",
     "cleantalk/mloader": "*"
   },
@@ -20,11 +19,6 @@
     "squizlabs/php_codesniffer": "3.*",
     "phpcompatibility/php-compatibility": "^9.3"
   },
-  "config": {
-    "allow-plugins": {
-      "cleantalk/apbct-installer": true
-    }
-  },
   "scripts": {
     "test": [
       "vendor/bin/phpunit --configuration tests/phpunit.xml",
@@ -33,5 +27,10 @@
       "vendor/bin/psalm --no-cache --config=tests/psalm.xml",
       "vendor/bin/psalm --no-cache --config=tests/psalm.xml --taint-analysis"
     ]
+  },
+  "autoload": {
+    "psr-4": {
+      "Cleantalk\\Common\\Cron\\": "/"
+    }
   }
 }
