@@ -31,5 +31,10 @@
     "psr-4": {
       "Cleantalk\\Common\\Cron\\": "/"
     }
+  },
+  "config": {
+    "allow-plugins": {
+      "cleantalk/apbct-installer": true
+    }
   }
 }
